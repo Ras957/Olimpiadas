@@ -5,14 +5,14 @@
  */
 package Modelo.DAO;
 
-import Modelo.Equipement;
+import Modelo.Equipment;
 
 /**
  *
  * @author Francisco Miguel Carrasquilla Rodríguez-Córdoba
  * <afcarrasquilla@iesfranciscodelosrios.es>
  */
-public interface EquipementDAO extends DAO<Equipement, Integer>{
+public interface EquipmentDAO extends DAO<Equipment, Integer>{
     
 }
 

@@ -10,26 +10,36 @@ package Modelo;
  * @author Francisco Miguel Carrasquilla Rodríguez-Córdoba
  * <afcarrasquilla@iesfrancisidlosrios.es>
  */
-public class Equipement {
-    protected int id;
+public class Equipment {
+    protected Integer id;
     protected String name;
     protected boolean maintenance;
 
-    public Equipement(String name) {
+    public Equipment(String name) {
         this.name = name;
     }
+
+    public Equipment(String name, boolean maintenance) {
+        this.name = name;
+        this.maintenance = maintenance;
+    }
+
+    public Equipment() {
+        this.name = "";
+    }
+    
 
     /**
      * @return the id
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -61,6 +71,8 @@ public class Equipement {
         this.maintenance = maintenance;
     }
 }
+
+
 
 
 

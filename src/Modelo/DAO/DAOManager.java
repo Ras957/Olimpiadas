@@ -24,9 +24,10 @@ public interface DAOManager {
     
     CommissionerDAO getCommissionerDAO();
     
-    EquipementDAO getEquipementDAO();
+    EquipmentDAO getEquipmentDAO();
     
     EventDAO getEventDAO();
 }
+
 
 

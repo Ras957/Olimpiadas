@@ -21,7 +21,7 @@ public class Event {
     protected SportComplex complex;
     protected Date date;
     protected Area area;
-    protected List<Equipement> equip;
+    protected List<Equipment> equip;
     protected HashMap<Commissioner, String> commissioners;
 
     public Event(String name, Date date, SportComplex complex,
@@ -105,14 +105,14 @@ public class Event {
     /**
      * @return the equip
      */
-    public List<Equipement> getEquip() {
+    public List<Equipment> getEquip() {
         return equip;
     }
 
     /**
      * @param equip the equip to set
      */
-    public void setEquip(List<Equipement> equip) {
+    public void setEquip(List<Equipment> equip) {
         this.equip = equip;
     }
 

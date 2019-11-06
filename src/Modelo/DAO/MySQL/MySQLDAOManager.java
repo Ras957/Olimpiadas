@@ -10,7 +10,6 @@ import Modelo.DAO.AreaDAO;
 import Modelo.DAO.CommissionerDAO;
 import Modelo.DAO.DAOException;
 import Modelo.DAO.DAOManager;
-import Modelo.DAO.EquipementDAO;
 import Modelo.DAO.EventDAO;
 import Modelo.DAO.HeadquarterDAO;
 import Modelo.DAO.MultiSportCenterDAO;
@@ -22,6 +21,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
+import Modelo.DAO.EquipmentDAO;
 
 /**
  * 
@@ -38,7 +38,7 @@ public class MySQLDAOManager implements DAOManager{
     private MultiSportCenterDAO multiSportCenters = null;
     private AreaDAO areas = null;
     private CommissionerDAO commissioners = null;
-    private EquipementDAO equipements = null;
+    private EquipmentDAO equipements = null;
     private EventDAO events = null;
 
     public MySQLDAOManager(String host, String username, String password, String database) throws Exception {
@@ -94,9 +94,9 @@ public class MySQLDAOManager implements DAOManager{
     }
 
     @Override
-    public EquipementDAO getEquipementDAO() {
+    public EquipmentDAO getEquipmentDAO() {
         if (equipements == null) {
-            equipements = new MySQLEquipementDAO(conn);
+            equipements = new MySQLEquipmentDAO(conn);
         }
         return equipements;
     }
