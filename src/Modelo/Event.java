@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Event {
 
-    protected int id;
+    protected Integer id;
     protected String name;
     protected SportComplex complex;
     protected Date date;
@@ -35,14 +35,14 @@ public class Event {
     /**
      * @return the id
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -130,4 +130,5 @@ public class Event {
         this.commissioners = commissioners;
     }
 }
+
 
