@@ -40,6 +40,10 @@ public class Event {
         this.equip = equip;
         this.commissioners = commissioners;
     }
+
+    public Event() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 
     /**
@@ -140,6 +144,7 @@ public class Event {
         this.commissioners = commissioners;
     }
 }
+
 
 
 

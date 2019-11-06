@@ -5,7 +5,15 @@
  */
 package Vista.frames.event;
 
+import Exceptions.DAOException;
+import Modelo.DAO.AreaDAO;
+import Modelo.DAO.CommissionerDAO;
+import Modelo.DAO.EquipmentDAO;
+import Modelo.DAO.SportComplexDAO;
+import Modelo.Event;
+import Vista.frames.sportcenter.SportComplexComboModel;
 import Vista.frames.sportcenter.SportComplexComboView;
+import java.util.Date;
 
 /**
  *
@@ -14,12 +22,146 @@ import Vista.frames.sportcenter.SportComplexComboView;
  */
 public class EventDetailsPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form EventDetailsPanel
-     */
+    private Event event;
+    
+    private boolean edit;
+    
+    private SportComplexComboModel comboComplex;
+    private CommissionerComboModel comboCommissioner;
+    private EquipmentComboModel comboEquip;
+    private AreaComboModel comboArea;
+    
     public EventDetailsPanel() {
         initComponents();
+        comboComplex = new SportComplexComboModel(null);
+        comboCommissioner = new CommissionerComboModel(null);
+        comboEquip = new EquipmentComboModel(null);
+        comboArea = new AreaComboModel(null);
     }
+    
+    public EventDetailsPanel(SportComplexDAO complex, CommissionerDAO comm,
+           EquipmentDAO equip, AreaDAO area ) throws DAOException {
+        initComponents();
+        comboComplex = new SportComplexComboModel(complex);
+        comboComplex.update();
+        ComboBoxSportComplex.setModel(comboComplex);
+        comboCommissioner = new CommissionerComboModel(comm);
+        comboCommissioner.update();
+        ComboBoxCommissioner.setModel(comboCommissioner);
+        comboEquip = new EquipmentComboModel(equip);
+        comboEquip.update();
+        ComboBoxEquipment.setModel(comboEquip);
+        comboArea = new AreaComboModel(area);
+        comboArea.update();
+        ComboBoxArea.setModel(comboArea);
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
+    public boolean isEdit() {
+        return edit;
+    }
+
+    public void setEdit(boolean edit) {
+        this.edit = edit;
+        TextName.setEditable(edit);
+        ComboBoxSportComplex.setEnabled(edit);
+        FormattedTextDate.setEditable(edit);
+        ComboBoxArea.setEnabled(edit);
+        ComboBoxEquipment.setEnabled(edit);
+        ComboBoxCommissioner.setEnabled(edit);
+        ComboBoxRol.setEnabled(edit);
+    }
+
+    public SportComplexComboModel getComboComplex() {
+        return comboComplex;
+    }
+
+    public void setComboComplex(SportComplexComboModel comboComplex) 
+            throws DAOException {
+        this.comboComplex = comboComplex;
+        ComboBoxSportComplex.setModel(comboComplex);
+        comboComplex.update();
+    }
+
+    public CommissionerComboModel getComboCommissioner() {
+        return comboCommissioner;
+    }
+
+    public void setComboCommissioner(CommissionerComboModel comboCommissioner) 
+            throws DAOException {
+        this.comboCommissioner = comboCommissioner;
+        ComboBoxCommissioner.setModel(comboCommissioner);
+        comboCommissioner.update();
+    }
+
+    public EquipmentComboModel getComboEquip() {
+        return comboEquip;
+    }
+
+    public void setComboEquip(EquipmentComboModel comboEquip) 
+            throws DAOException {
+        this.comboEquip = comboEquip;
+        ComboBoxEquipment.setModel(comboEquip);
+        comboEquip.update();
+    }
+
+    public AreaComboModel getComboArea() {
+        return comboArea;
+    }
+
+    public void setComboArea(AreaComboModel comboArea) throws DAOException {
+        this.comboArea = comboArea;
+        ComboBoxArea.setModel(comboArea);
+        comboArea.update();
+    }
+    
+    public void loadData(){
+        if (event != null) {
+            TextName.setText(event.getName());
+            FormattedTextDate.setValue(event.getDate());
+        }else{
+            TextName.setText("");
+            FormattedTextDate.setText("");
+        }
+        TextName.requestFocus();
+    }
+    
+    public void saveData(){
+        if (event == null) {
+            event = new Event();
+        }
+        event.setName(TextName.getText());
+        SportComplexComboView sccv =
+                (SportComplexComboView) ComboBoxSportComplex.getSelectedItem();
+        event.setComplex(sccv.getSportComplex());
+        event.setDate((Date)FormattedTextDate.getValue());
+        AreaComboView acv = (AreaComboView) ComboBoxArea.getSelectedItem();
+        event.setArea(acv.getArea());
+        EquipmentComboView ecv = 
+                (EquipmentComboView) ComboBoxEquipment.getSelectedItem();
+        event.getEquip().add(ecv.getEquipment());
+        CommissionerComboView ccv = 
+                (CommissionerComboView) ComboBoxCommissioner.getSelectedItem();
+        String rol = (String) ComboBoxRol.getSelectedItem();
+        event.getCommissioners().put(ccv.getCommissioner(), rol);
+    }
+    
+    public boolean checkData(){
+        boolean noEmpty = false;
+        if (!TextName.getText().equals("") && !FormattedTextDate.getText().equals("")) {
+            noEmpty = true;
+        }
+        return noEmpty;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize
@@ -60,7 +202,7 @@ public class EventDetailsPanel extends javax.swing.JPanel {
 
         FormattedTextDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
 
-        ComboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Observador", "Juez" }));
+        ComboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OBSERVADOR", "JUEZ" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

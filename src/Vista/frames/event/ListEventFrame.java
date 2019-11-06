@@ -5,18 +5,51 @@
  */
 package Vista.frames.event;
 
+import Exceptions.DAOException;
+import Modelo.DAO.DAOManager;
+import Modelo.DAO.MySQL.MySQLDAOManager;
+import Modelo.Event;
+import Vista.frames.sportcenter.SportComplexComboModel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Francisco Miguel Carrasquilla Rodríguez-Córdoba
  * <afcarrasquilla@iesfranciscodelosrios.es>
  */
 public class ListEventFrame extends javax.swing.JFrame {
+    
+    private DAOManager manager;
+    private EventTableModel model;
 
-    /**
-     * Creates new form ListEventFrame
-     */
-    public ListEventFrame() {
+    public ListEventFrame(DAOManager manager) throws DAOException {
         initComponents();
+        this.manager = manager;
+        this.model = new EventTableModel(manager.getEventDAO());
+        getData();
+        this.tabla.setModel(model);
+        this.Details.setEdit(false);
+        this.Details.setEvent(null);
+        this.Details.setComboComplex(
+                new SportComplexComboModel(manager.getSportComplexDAO()));
+        this.Details.setComboArea(new AreaComboModel(manager.getAreaDAO()));
+        this.Details.setComboEquip(
+                new EquipmentComboModel(manager.getEquipmentDAO()));
+        this.Details.setComboCommissioner(
+                new CommissionerComboModel(manager.getCommissionerDAO()));
+        activateButtonsCRUD(false);
+        activateButtonsSave(false);
+        this.tabla.getSelectionModel().addListSelectionListener(e -> {
+            activateButtonsCRUD(tabla.getSelectedRow() != -1);
+        });
+    }
+    public final void getData() throws DAOException {
+        Registros.setText("Actualizando tabla...");
+        model.updateModel();
+        model.fireTableDataChanged();
+        Registros.setText(model.getRowCount() + " eventos visibles");
     }
 
     /**
@@ -39,6 +72,7 @@ public class ListEventFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
+        Details = new Vista.frames.event.EventDetailsPanel();
         Registros = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -137,6 +171,7 @@ public class ListEventFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabla);
 
         jPanel1.setLayout(new java.awt.BorderLayout());
+        jPanel1.add(Details, java.awt.BorderLayout.CENTER);
 
         Registros.setText("numero de registros");
 
@@ -146,11 +181,12 @@ public class ListEventFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -162,22 +198,24 @@ public class ListEventFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Registros))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Registros))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private Event getSelectedEvent() throws DAOException{
+        int id = (int) tabla.getValueAt(tabla.getSelectedRow(), 0);
+        return manager.getEventDAO().get(id);
+    }
+    
     private void BAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BAddActionPerformed
         tabla.clearSelection();
-        Details.setHeadquarter(null);
+        Details.setEvent(null);
         Details.loadData();
         Details.setEdit(true);
         activateButtonsSave(true);
@@ -185,8 +223,8 @@ public class ListEventFrame extends javax.swing.JFrame {
 
     private void BEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BEditActionPerformed
         try {
-            Headquarter headquarter = getSelectedHeadquarter();
-            Details.setHeadquarter(headquarter);
+            Event event = getSelectedEvent();
+            Details.setEvent(event);
             Details.setEnabled(true);
             Details.setEdit(true);
             Details.loadData();
@@ -198,11 +236,11 @@ public class ListEventFrame extends javax.swing.JFrame {
 
     private void BDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BDeleteActionPerformed
         if (JOptionPane.showConfirmDialog(rootPane, "¿Seguro que quieres borrar "
-            + "esta sede?", "Borrar Sede", JOptionPane.YES_NO_OPTION,
+            + "este evento?", "Borrar Evento", JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
         try {
-            Headquarter headquarter = getSelectedHeadquarter();
-            manager.getHeadquarterDAO().delete(headquarter);
+            Event event = getSelectedEvent();
+            manager.getEventDAO().delete(event);
             getData();
         } catch (DAOException ex) {
             ex.getMessage();
@@ -214,13 +252,13 @@ public class ListEventFrame extends javax.swing.JFrame {
         try {
             if (Details.checkData()) {
                 Details.saveData();
-                Headquarter headquarter = Details.getHeadquarter();
-                if (headquarter.getId() == null) {
-                    manager.getHeadquarterDAO().insert(headquarter);
+                Event event = Details.getEvent();
+                if (event.getId() == null) {
+                    manager.getEventDAO().insert(event);
                 } else {
-                    manager.getHeadquarterDAO().modify(headquarter);
+                    manager.getEventDAO().modify(event);
                 }
-                Details.setHeadquarter(null);
+                Details.setEvent(null);
                 Details.setEdit(false);
                 Details.loadData();
                 tabla.clearSelection();
@@ -237,7 +275,7 @@ public class ListEventFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_BSaveActionPerformed
 
     private void BCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BCancelActionPerformed
-        Details.setHeadquarter(null);
+        Details.setEvent(null);
         Details.setEdit(false);
         Details.loadData();
         tabla.clearSelection();
@@ -246,14 +284,27 @@ public class ListEventFrame extends javax.swing.JFrame {
 
     /**
      * @param args the command line arguments
-     
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ListEventFrame().setVisible(true);
-            }
-        });
-    }*/
+     */
+    public static void main(String args[]) throws Exception {
+     DAOManager manager = new MySQLDAOManager("localhost", "root", "", "olympics");
+        java.awt.EventQueue.invokeLater(() -> {
+         try {
+             new ListEventFrame(manager).setVisible(true);
+         } catch (DAOException ex) {
+             ex.printStackTrace();
+         }
+     });
+    }
+    
+    private void activateButtonsCRUD(boolean active) {
+        BEdit.setEnabled(active);
+        BDelete.setEnabled(active);
+    }
+
+    private void activateButtonsSave(boolean active) {
+        BSave.setEnabled(active);
+        BCancel.setEnabled(active);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BAdd;
@@ -261,6 +312,7 @@ public class ListEventFrame extends javax.swing.JFrame {
     private javax.swing.JButton BDelete;
     private javax.swing.JButton BEdit;
     private javax.swing.JButton BSave;
+    private Vista.frames.event.EventDetailsPanel Details;
     private javax.swing.JLabel Registros;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

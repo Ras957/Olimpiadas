@@ -40,8 +40,8 @@ public class MySQLEventDAO implements EventDAO {
     final String DELETE_CE = "DELETE FROM comissioner_event WHERE id=?";
     final String DELETE_EE = "DELETE FROM equipment_event WHERE id=?";
     final String GETALL = "SELECT * FROM event";
-    final String GETALL_CE = "SELECT * FROM comissioner_event";
-    final String GETALL_EE = "SELECT * FROM equipment_event";
+    final String GETALL_CE = "SELECT * FROM comissioner_event WHERE id_event=?";
+    final String GETALL_EE = "SELECT * FROM equipment_event WHERE id_event=?";
     final String GETONE = "SELECT * FROM event WHERE id=?";
     final String GETONE_CE = "SELECT id FROM comissioner_event WHERE id_event=7 AND id_comissioner=1 AND rol like ?";
     //final String GETONE_CE = "SELECT * FROM comissioner_event WHERE id=?";
@@ -133,7 +133,7 @@ public class MySQLEventDAO implements EventDAO {
                     stat.setInt(1, e.getId());
                     stat.setInt(2, a.getId());
                     //id de la tubla equipement_event
-                    
+                    stat.setInt(3, getIdEquEve(e.getId(), a.getId()));
                     if (stat.executeUpdate() == 0) {
                         throw new DAOException("Puede que no se haya guardado");
                     }
@@ -146,6 +146,7 @@ public class MySQLEventDAO implements EventDAO {
                     stat.setInt(2, e.getKey().getId());
                     stat.setString(3, e.getValue());
                     //id de la tabla comissioner_event
+                    stat.setInt(4, getIdComEve(a.getId(), e.getKey().getId(), e.getValue()));
                     if (stat.executeUpdate() == 0) {
                         throw new DAOException("Puede que no se haya guardado");
                     }
@@ -189,16 +190,32 @@ public class MySQLEventDAO implements EventDAO {
     private Event convert(ResultSet rs) throws SQLException, DAOException {
         String name = rs.getString("name");
         Date date = (Date) rs.getDate("date");
-        MySQLSportComplexDAO aux = null;
+        MySQLSportComplexDAO aux = new MySQLSportComplexDAO(conn);
         SportComplex sportComplex = aux.get(rs.getInt("id_sportcomplex"));
         //area es distinto porque puede ser null
-        MySQLAreaDAO aux2 = null;
+        MySQLAreaDAO aux2 = new MySQLAreaDAO(conn);
         Area area = aux2.get(rs.getInt("id_area"));
         if (rs.wasNull()) {
             area = null;
         }
         Event event = new Event(name, date, sportComplex, area);
         event.setId(rs.getInt("id"));
+        MySQLEquipmentDAO aux3 = new MySQLEquipmentDAO(conn);
+        MySQLCommissionerDAO aux4 = new MySQLCommissionerDAO(conn);
+        PreparedStatement stat = conn.prepareStatement(GETALL_EE);
+        stat.setInt(1, event.getId());
+        rs = stat.executeQuery();
+        while (rs.next()) {
+            event.getEquip().add(aux3.get(rs.getInt("id_event")));
+        }
+        stat = conn.prepareStatement(GETALL_CE);
+        stat.setInt(1, event.getId());
+        rs = stat.executeQuery();
+        while (rs.next()){
+            event.getCommissioners().put(aux4.get(rs.getInt("id_comissioner")),
+                    rs.getString("rol"));
+        }
+        stat.close();
         return event;
     }
 
