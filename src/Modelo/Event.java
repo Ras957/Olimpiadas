@@ -32,6 +32,16 @@ public class Event {
         this.area = area;
     }
 
+    public Event(String name, SportComplex complex, Date date, Area area, List<Equipment> equip, HashMap<Commissioner, String> commissioners) {
+        this.name = name;
+        this.complex = complex;
+        this.date = date;
+        this.area = area;
+        this.equip = equip;
+        this.commissioners = commissioners;
+    }
+    
+
     /**
      * @return the id
      */
@@ -130,5 +140,6 @@ public class Event {
         this.commissioners = commissioners;
     }
 }
+
 
 
