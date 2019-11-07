@@ -158,7 +158,7 @@ public class MySQLAreaDAO implements AreaDAO {
         PreparedStatement stat = null;
         ResultSet rs = null;
         Area area = null;
-        if (id.intValue() != 0) {
+        if (id != 0) {
             try {
                 stat = conn.prepareStatement(GETONE);
                 stat.setInt(1, id);

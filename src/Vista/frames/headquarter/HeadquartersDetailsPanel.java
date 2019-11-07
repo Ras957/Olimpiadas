@@ -83,7 +83,6 @@ public class HeadquartersDetailsPanel extends javax.swing.JPanel {
         Budget = new javax.swing.JLabel();
         TextName = new javax.swing.JTextField();
         TextBudget = new javax.swing.JTextField();
-        Complexes = new javax.swing.JLabel();
 
         Name.setText("Nombre:");
 
@@ -95,8 +94,6 @@ public class HeadquartersDetailsPanel extends javax.swing.JPanel {
             }
         });
 
-        Complexes.setText("Complejos:");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -104,15 +101,12 @@ public class HeadquartersDetailsPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Name)
-                            .addComponent(Budget))
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TextName)
-                            .addComponent(TextBudget, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)))
-                    .addComponent(Complexes))
+                    .addComponent(Name)
+                    .addComponent(Budget))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(TextName)
+                    .addComponent(TextBudget, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -126,9 +120,7 @@ public class HeadquartersDetailsPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Budget)
                     .addComponent(TextBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Complexes)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -139,7 +131,6 @@ public class HeadquartersDetailsPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Budget;
-    private javax.swing.JLabel Complexes;
     private javax.swing.JLabel Name;
     private javax.swing.JTextField TextBudget;
     private javax.swing.JTextField TextName;

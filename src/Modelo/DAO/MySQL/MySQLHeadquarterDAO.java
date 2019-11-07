@@ -31,6 +31,7 @@ public class MySQLHeadquarterDAO implements HeadquarterDAO{
     public static final String DELETE = "DELETE FROM headquarter WHERE id=?";
     public static final String GETALL = "SELECT * FROM headquarter";
     public static final String GETONE = "SELECT * FROM headquarter WHERE id=?";
+    public static final String GET_N_COMPLEX = "SELECT count(id) AS numComplex FROM sportcomplex WHERE id_headquarter=?";
 
     private Connection conn;
 
@@ -117,11 +118,13 @@ public class MySQLHeadquarterDAO implements HeadquarterDAO{
         }
     }
     
-    private Headquarter convert(ResultSet rs) throws SQLException{
+    private Headquarter convert(ResultSet rs) throws SQLException, DAOException{
         String name = rs.getString("name");
         float budget = rs.getFloat("budget");
+        int id = rs.getInt("id");
         Headquarter headquarter = new Headquarter(name, budget);
-        headquarter.setId(rs.getInt("id"));
+        headquarter.setId(id);
+        countComplex(headquarter);
         return headquarter;
     }
 
@@ -182,6 +185,32 @@ public class MySQLHeadquarterDAO implements HeadquarterDAO{
             }
         }
         return headquarter;
+    }
+    
+    public void countComplex(Headquarter hq) throws DAOException{
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+        try{
+        stat = conn.prepareStatement(GET_N_COMPLEX);
+        stat.setInt(1, hq.getId());
+        rs = stat.executeQuery();
+        if (rs.getInt("numComplex") != 0) {
+          hq.setNumComplexes(rs.getInt("numComplex"));  
+        }
+        } catch (SQLException ex) {
+            throw new DAOException("Error en SQL", ex);
+        }finally{
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                throw new DAOException("Error en SQL", ex);
+            }
+        }
     }
     
     /*

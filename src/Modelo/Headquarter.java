@@ -16,16 +16,18 @@ public class Headquarter {
     protected Integer id;
     protected String name;
     protected float budget;
-    protected List<SportComplex> complexes;
+    protected int numComplexes;
 
     public Headquarter(String name, float budget) {
         this.name = name;
         this.budget = budget;
+        this.numComplexes = 0;
     }
 
     public Headquarter() {
         this.name = "";
         this.budget = 0;
+        this.numComplexes = 0;
     }
 
     /**
@@ -70,18 +72,12 @@ public class Headquarter {
         this.budget = budget;
     }
 
-    /**
-     * @return the complexes
-     */
-    public List<SportComplex> getComplexes() {
-        return complexes;
+    public int getNumComplexes() {
+        return numComplexes;
     }
 
-    /**
-     * @param complexes the complexes to set
-     */
-    public void setComplexes(List<SportComplex> complexes) {
-        this.complexes = complexes;
+    public void setNumComplexes(int numComplexes) {
+        this.numComplexes = numComplexes;
     }
     
     @Override
@@ -89,6 +85,7 @@ public class Headquarter {
         return "ID: "+this.id+" Nombre: "+this.name+" Presupuesto "+this.budget;
     }
 }
+
 
 
 

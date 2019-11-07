@@ -39,7 +39,7 @@ public class HeadquarterTableModel extends AbstractTableModel{
             case 0: n = "ID"; break;
             case 1: n = "Nombre"; break;
             case 2: n = "Presupuesto"; break;
-            //case 3: n = "Complejos"; break;
+            case 3: n = "Número de Complejos"; break;
             default: n = "[no]";
         }
         return n;
@@ -52,7 +52,7 @@ public class HeadquarterTableModel extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -63,12 +63,14 @@ public class HeadquarterTableModel extends AbstractTableModel{
             case 0: o = hq.getId(); break;
             case 1: o = hq.getName(); break;
             case 2: o = hq.getBudget(); break;
-            //case 3: o = hq.getComplexes(); break;
+            case 3: o = hq.getNumComplexes(); break;
             default: o = "";
         }
         return o;
     }
 }
+
+
 
 
 
