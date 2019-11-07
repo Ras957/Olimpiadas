@@ -31,8 +31,8 @@ public class HeadquarterComboView {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.headquarter);
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.headquarter);
         return hash;
     }
 
@@ -52,7 +52,9 @@ public class HeadquarterComboView {
             return false;
         }
         return true;
-    }    
+    }
+
+    
 
     @Override
     public String toString() {
@@ -62,6 +64,7 @@ public class HeadquarterComboView {
     
     
 }
+
 
 
 

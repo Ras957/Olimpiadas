@@ -66,6 +66,7 @@ public class SportCenterDetailsPanel extends javax.swing.JPanel {
     
     public void loadData(){
         if (sportCenter != null) {
+            SelectItemComboBox();
             TextSport.setText(sportCenter.getSport());
             TextInformation.setText(sportCenter.getInformation());
         }else{
@@ -73,6 +74,17 @@ public class SportCenterDetailsPanel extends javax.swing.JPanel {
             TextInformation.setText("");
         }
         TextSport.requestFocus();
+    }
+    
+    public void SelectItemComboBox() {
+        boolean encontrado=false;
+        for (int i = 0; i < ComboBoxSportComplex.getItemCount() && !encontrado; i++) {
+            if (ComboBoxSportComplex.getItemAt(i).getSportComplex().getId() == 
+                    sportCenter.getId()) {
+                ComboBoxSportComplex.setSelectedIndex(i);
+                encontrado=true;
+            }
+        }
     }
     
     public void saveData(){
@@ -127,22 +139,20 @@ public class SportCenterDetailsPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Information)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(TextInformation))
+                        .addGap(18, 18, 18)
+                        .addComponent(TextInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Id)
                             .addComponent(Sport))
-                        .addGap(28, 28, 28)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(ComboBoxSportComplex, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(TextSport))))
-                .addGap(58, 58, 58))
+                            .addComponent(TextSport, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ComboBoxSportComplex, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

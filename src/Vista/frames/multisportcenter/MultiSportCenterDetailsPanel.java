@@ -67,11 +67,23 @@ public class MultiSportCenterDetailsPanel extends javax.swing.JPanel {
     
     public void loadData(){
         if (multiSportCenter != null) {
+            SelectItemComboBox();
             TextInformation.setText(multiSportCenter.getInformation());
         }else{
             TextInformation.setText("");
         }
         TextInformation.requestFocus();
+    }
+    
+    public void SelectItemComboBox() {
+        boolean encontrado=false;
+        for (int i = 0; i < ComboBoxSportComplex.getItemCount() && !encontrado; i++) {
+            if (ComboBoxSportComplex.getItemAt(i).getSportComplex().getId() == 
+                    multiSportCenter.getId()) {
+                ComboBoxSportComplex.setSelectedIndex(i);
+                encontrado=true;
+            }
+        }
     }
     
     public void saveData(){

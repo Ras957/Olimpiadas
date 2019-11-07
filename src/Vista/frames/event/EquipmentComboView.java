@@ -57,7 +57,7 @@ public class EquipmentComboView {
 
     @Override
     public String toString() {
-        return equip.getId().toString();
+        return equip.getName();
     }
     
     

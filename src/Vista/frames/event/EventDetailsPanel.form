@@ -19,43 +19,27 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="SportComplex" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="Date" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="Area" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="ComboBoxSportComplex" max="32767" attributes="0"/>
-                          <Component id="FormattedTextDate" max="32767" attributes="0"/>
-                          <Component id="ComboBoxArea" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="Commissioners" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="ComboBoxCommissioner" min="-2" pref="145" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="ComboBoxRol" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="Name" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="TextName" min="-2" pref="300" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="Equipments" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="ComboBoxEquipment" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="SportComplex" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="Date" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="Area" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="Equipments" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="Name" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="Commissioners" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="ComboBoxCommissioner" pref="152" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="ComboBoxRol" min="-2" pref="137" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="TextName" max="32767" attributes="0"/>
+                  <Component id="ComboBoxEquipment" max="32767" attributes="0"/>
+                  <Component id="FormattedTextDate" max="32767" attributes="0"/>
+                  <Component id="ComboBoxSportComplex" max="32767" attributes="0"/>
+                  <Component id="ComboBoxArea" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -79,10 +63,10 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="ComboBoxArea" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Area" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ComboBoxArea" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="Equipments" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ComboBoxEquipment" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -93,7 +77,7 @@
                   <Component id="ComboBoxCommissioner" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ComboBoxRol" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="114" max="32767" attributes="0"/>
+              <EmptySpace pref="111" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

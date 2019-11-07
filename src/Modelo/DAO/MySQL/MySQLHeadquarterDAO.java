@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Modelo.DAO.MySQL;
 
 import Exceptions.DAOException;
@@ -20,11 +19,11 @@ import java.util.List;
 import javax.xml.bind.JAXBException;
 
 /**
- * 
- * @author Francisco Miguel Carrasquilla Rodríguez-Córdoba 
+ *
+ * @author Francisco Miguel Carrasquilla Rodríguez-Córdoba
  * <afcarrasquilla@iesfranciscodelosrios.es>
  */
-public class MySQLHeadquarterDAO implements HeadquarterDAO{
+public class MySQLHeadquarterDAO implements HeadquarterDAO {
     
     public static final String INSERT = "INSERT INTO headquarter(name,budget) VALUES(?,?)";
     public static final String UPDATE = "UPDATE headquarter SET name=?, budget=? WHERE id=?";
@@ -32,33 +31,33 @@ public class MySQLHeadquarterDAO implements HeadquarterDAO{
     public static final String GETALL = "SELECT * FROM headquarter";
     public static final String GETONE = "SELECT * FROM headquarter WHERE id=?";
     public static final String GET_N_COMPLEX = "SELECT count(id) AS numComplex FROM sportcomplex WHERE id_headquarter=?";
-
+    
     private Connection conn;
-
+    
     public MySQLHeadquarterDAO(Connection conn) {
         this.conn = conn;
-    } 
-
+    }    
+    
     @Override
     public void insert(Headquarter a) throws DAOException {
         PreparedStatement stat = null;
         ResultSet rs = null;
-        try{
-            stat = conn.prepareStatement(INSERT , Statement.RETURN_GENERATED_KEYS);
+        try {
+            stat = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             stat.setString(1, a.getName());
             stat.setFloat(2, a.getBudget());
-            if (stat.executeUpdate() == 0){
+            if (stat.executeUpdate() == 0) {
                 throw new DAOException("Puede que no se haya guardado");
             }
             rs = stat.getGeneratedKeys();
             if (rs.next()) {
                 a.setId(rs.getInt(1));
-            }else{
+            } else {
                 throw new DAOException("No puedo asignar ID a esta Sede");
             }
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             throw new DAOException("Error en SQL", ex);
-        }finally{
+        } finally {
             try {
                 if (stat != null) {
                     stat.close();
@@ -71,43 +70,21 @@ public class MySQLHeadquarterDAO implements HeadquarterDAO{
             }
         }
     }
-
+    
     @Override
     public void modify(Headquarter a) throws DAOException {
         PreparedStatement stat = null;
-        try{
+        try {
             stat = conn.prepareStatement(UPDATE);
             stat.setString(1, a.getName());
             stat.setFloat(2, a.getBudget());
             stat.setInt(3, a.getId());
-            if (stat.executeUpdate() == 0){
+            if (stat.executeUpdate() == 0) {
                 throw new DAOException("Puede que no se haya guardado");
             }
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             throw new DAOException("Error en SQL", ex);
-        }finally{
-            try {
-                if (stat != null) {
-                    stat.close();
-                }
-            } catch (SQLException ex) {
-                throw new DAOException("Error en SQL", ex);
-            }
-        }
-    }
-
-    @Override
-    public void delete(Headquarter a) throws DAOException {
-        PreparedStatement stat = null;
-        try{
-            stat = conn.prepareStatement(DELETE);
-            stat.setInt(1, a.getId());
-            if (stat.executeUpdate() == 0){
-                throw new DAOException("Puede que no se haya guardado");
-            }
-        }catch(SQLException ex){
-            throw new DAOException("Error en SQL", ex);
-        }finally{
+        } finally {
             try {
                 if (stat != null) {
                     stat.close();
@@ -118,7 +95,29 @@ public class MySQLHeadquarterDAO implements HeadquarterDAO{
         }
     }
     
-    private Headquarter convert(ResultSet rs) throws SQLException, DAOException{
+    @Override
+    public void delete(Headquarter a) throws DAOException {
+        PreparedStatement stat = null;
+        try {
+            stat = conn.prepareStatement(DELETE);
+            stat.setInt(1, a.getId());
+            if (stat.executeUpdate() == 0) {
+                throw new DAOException("Puede que no se haya guardado");
+            }
+        } catch (SQLException ex) {
+            throw new DAOException("Error en SQL", ex);
+        } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+            } catch (SQLException ex) {
+                throw new DAOException("Error en SQL", ex);
+            }
+        }
+    }
+    
+    private Headquarter convert(ResultSet rs) throws SQLException, DAOException {
         String name = rs.getString("name");
         float budget = rs.getFloat("budget");
         int id = rs.getInt("id");
@@ -127,21 +126,21 @@ public class MySQLHeadquarterDAO implements HeadquarterDAO{
         countComplex(headquarter);
         return headquarter;
     }
-
+    
     @Override
-    public List<Headquarter> getAll() throws DAOException{
+    public List<Headquarter> getAll() throws DAOException {
         PreparedStatement stat = null;
         ResultSet rs = null;
         List<Headquarter> headquarters = new ArrayList<>();
-        try{
+        try {
             stat = conn.prepareStatement(GETALL);
             rs = stat.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 headquarters.add(convert(rs));
             }
         } catch (SQLException ex) {
             throw new DAOException("Error en SQL", ex);
-        }finally{
+        } finally {
             try {
                 if (stat != null) {
                     stat.close();
@@ -155,24 +154,24 @@ public class MySQLHeadquarterDAO implements HeadquarterDAO{
         }
         return headquarters;
     }
-
+    
     @Override
     public Headquarter get(Integer id) throws DAOException {
         PreparedStatement stat = null;
         ResultSet rs = null;
         Headquarter headquarter = null;
-        try{
+        try {
             stat = conn.prepareStatement(GETONE);
             stat.setInt(1, id);
             rs = stat.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 headquarter = convert(rs);
-            }else{
+            } else {
                 throw new DAOException("No se ha encontrado ese registro");
             }
         } catch (SQLException ex) {
             throw new DAOException("Error en SQL", ex);
-        }finally{
+        } finally {
             try {
                 if (stat != null) {
                     stat.close();
@@ -187,19 +186,21 @@ public class MySQLHeadquarterDAO implements HeadquarterDAO{
         return headquarter;
     }
     
-    public void countComplex(Headquarter hq) throws DAOException{
+    public void countComplex(Headquarter hq) throws DAOException {
         PreparedStatement stat = null;
         ResultSet rs = null;
-        try{
-        stat = conn.prepareStatement(GET_N_COMPLEX);
-        stat.setInt(1, hq.getId());
-        rs = stat.executeQuery();
-        if (rs.getInt("numComplex") != 0) {
-          hq.setNumComplexes(rs.getInt("numComplex"));  
-        }
+        try {
+            stat = conn.prepareStatement(GET_N_COMPLEX);
+            stat.setInt(1, hq.getId());
+            rs = stat.executeQuery();
+            if (rs.next()) {
+               hq.setNumComplexes(rs.getInt("numComplex")); 
+            } else {
+                throw new DAOException("No se ha encontrado ese registro");
+            }
         } catch (SQLException ex) {
             throw new DAOException("Error en SQL", ex);
-        }finally{
+        } finally {
             try {
                 if (stat != null) {
                     stat.close();
@@ -212,7 +213,7 @@ public class MySQLHeadquarterDAO implements HeadquarterDAO{
             }
         }
     }
-    
+
     /*
     public static void main(String[] args) throws SQLException, DAOException{
         Connection conn = null;
@@ -228,5 +229,4 @@ public class MySQLHeadquarterDAO implements HeadquarterDAO{
             }
         }
     }*/
-
 }

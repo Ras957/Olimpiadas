@@ -195,9 +195,6 @@ public class MySQLEventDAO implements EventDAO {
         //area es distinto porque puede ser null
         MySQLAreaDAO aux2 = new MySQLAreaDAO(conn);
         Area area = aux2.get(rs.getInt("id_area"));
-        if (rs.wasNull()) {
-            area = null;
-        }
         Event event = new Event(name, date, sportComplex, area);
         event.setId(rs.getInt("id"));
         MySQLEquipmentDAO aux3 = new MySQLEquipmentDAO(conn);

@@ -68,11 +68,23 @@ public class AreaDetailsPanel extends javax.swing.JPanel {
         if (area != null){
             TextLocation.setText(area.getLocation());
             TextSport.setText(area.getSport());
+            SelectItemComboBox();
         }else{
             TextLocation.setText("");
             TextSport.setText("");
         }
         TextLocation.requestFocus();
+    }
+    
+    public void SelectItemComboBox() {
+        boolean encontrado=false;
+        for (int i = 0; i < ComboMultiSportCenter.getItemCount() && !encontrado; i++) {
+            if (ComboMultiSportCenter.getItemAt(i).getMsc().getId() == 
+                    area.getMsc().getId()) {
+                ComboMultiSportCenter.setSelectedIndex(i);
+                encontrado=true;
+            }
+        }
     }
     
     public void saveData(){

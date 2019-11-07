@@ -57,7 +57,7 @@ public class AreaComboView {
 
     @Override
     public String toString() {
-        return area.getId().toString();
+        return area.getLocation()+" (ID:"+area.getId().toString()+")";
     }
     
     

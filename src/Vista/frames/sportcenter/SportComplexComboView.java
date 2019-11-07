@@ -56,12 +56,13 @@ public class SportComplexComboView {
 
     @Override
     public String toString() {
-        return sportComplex.getLocation()+"("+sportComplex.getId()+")";
+        return sportComplex.getLocation()+" (ID:"+sportComplex.getId()+")";
     }
     
     
     
 }
+
 
 
 

@@ -9,18 +9,20 @@ import java.util.List;
  */
 public class MultiSportCenter extends SportComplex{
     protected String information;
-    protected List<Area> areas;
+    protected int nAreas;
 
     public MultiSportCenter(SportComplex sc, String information) {
         super(sc.getLocation(), sc.getBoss(), sc.getHeadquarter());
         this.id = sc.getId();
         this.information = information;
+        this.nAreas=0;
     }
 
     public MultiSportCenter() {
         super("", "", null);
         this.id = null;
         this.information = "";
+        this.nAreas=0;
     }
 
     /**
@@ -37,18 +39,12 @@ public class MultiSportCenter extends SportComplex{
         this.information = information;
     }
 
-    /**
-     * @return the areas
-     */
-    public List<Area> getAreas() {
-        return areas;
+    public int getnAreas() {
+        return nAreas;
     }
 
-    /**
-     * @param areas the areas to set
-     */
-    public void setAreas(List<Area> areas) {
-        this.areas = areas;
+    public void setnAreas(int nAreas) {
+        this.nAreas = nAreas;
     }
     
     @Override
@@ -56,6 +52,7 @@ public class MultiSportCenter extends SportComplex{
         return "ID: "+this.id+" Información: "+this.information;
     }
 }
+
 
 
 

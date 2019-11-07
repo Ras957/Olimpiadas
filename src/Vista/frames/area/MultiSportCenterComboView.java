@@ -56,11 +56,13 @@ class MultiSportCenterComboView {
 
     @Override
     public String toString() {
-        return msc.getId().toString();
+        return msc.getLocation()+" (ID:"+msc.getId()+")";
     }
     
     
     
 }
+
+
 
 

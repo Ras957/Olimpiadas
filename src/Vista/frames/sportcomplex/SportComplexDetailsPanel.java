@@ -80,11 +80,23 @@ public class SportComplexDetailsPanel extends javax.swing.JPanel {
         if (sportComplex != null){
             TextLocation.setText(sportComplex.getLocation());
             TextBoss.setText(sportComplex.getBoss());
+            SelectItemComboBox();
         }else{
             TextLocation.setText("");
             TextBoss.setText("");
         }
         TextLocation.requestFocus();
+    }
+
+    public void SelectItemComboBox() {
+        boolean encontrado=false;
+        for (int i = 0; i < ComboBoxHeadquarter.getItemCount() && !encontrado; i++) {
+            if (ComboBoxHeadquarter.getItemAt(i).getHeadquarter().getId() == 
+                    sportComplex.getHeadquarter().getId()) {
+                ComboBoxHeadquarter.setSelectedIndex(i);
+                encontrado=true;
+            }
+        }
     }
     
     public void saveData(){
