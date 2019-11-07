@@ -24,7 +24,7 @@ public class MySQLAreaDAO implements AreaDAO {
     final String DELETE = "DELETE FROM area WHERE id=?";
     final String GETALL = "SELECT * FROM area";
     final String GETONE = "SELECT * FROM area WHERE id=?";
-    
+
     private Connection conn;
 
     public MySQLAreaDAO(Connection conn) {
@@ -46,7 +46,7 @@ public class MySQLAreaDAO implements AreaDAO {
             rs = stat.getGeneratedKeys();
             if (rs.next()) {
                 a.setId(rs.getInt(1));
-            }else{
+            } else {
                 throw new DAOException("No puedo asignar ID a esta Area");
             }
         } catch (SQLException ex) {
@@ -158,27 +158,29 @@ public class MySQLAreaDAO implements AreaDAO {
         PreparedStatement stat = null;
         ResultSet rs = null;
         Area area = null;
-        try {
-            stat = conn.prepareStatement(GETONE);
-            stat.setInt(1, id);
-            rs = stat.executeQuery();
-            if (rs.next()) {
-                area = convert(rs);
-            } else {
-                throw new DAOException("No se ha encontrado ese registro");
-            }
-        } catch (SQLException ex) {
-            throw new DAOException("Error en SQL", ex);
-        } finally {
+        if (id.intValue() != 0) {
             try {
-                if (stat != null) {
-                    stat.close();
-                }
-                if (rs != null) {
-                    rs.close();
+                stat = conn.prepareStatement(GETONE);
+                stat.setInt(1, id);
+                rs = stat.executeQuery();
+                if (rs.next()) {
+                    area = convert(rs);
+                } else {
+                    throw new DAOException("No se ha encontrado ese registro");
                 }
             } catch (SQLException ex) {
                 throw new DAOException("Error en SQL", ex);
+            } finally {
+                try {
+                    if (stat != null) {
+                        stat.close();
+                    }
+                    if (rs != null) {
+                        rs.close();
+                    }
+                } catch (SQLException ex) {
+                    throw new DAOException("Error en SQL", ex);
+                }
             }
         }
         return area;

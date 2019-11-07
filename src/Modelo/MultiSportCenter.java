@@ -50,7 +50,13 @@ public class MultiSportCenter extends SportComplex{
     public void setAreas(List<Area> areas) {
         this.areas = areas;
     }
+    
+    @Override
+    public String toString(){
+        return "ID: "+this.id+" Información: "+this.information;
+    }
 }
+
 
 
 

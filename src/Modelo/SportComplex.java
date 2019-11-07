@@ -90,12 +90,21 @@ public class SportComplex {
         this.headquarter = headquarter;
     }
     
+    /*
     @Override
     public String toString(){
         return "ID: "+this.id+" Localización: "+this.location+
                 " Jefe "+this.boss+" Id_Sede:"+this.headquarter.getId();
+    }*/
+
+    @Override
+    public String toString() {
+        return this.location+" ("+this.id+")";
     }
+    
 }
+
+
 
 
 

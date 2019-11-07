@@ -125,7 +125,20 @@ public class Commissioner {
         myLetter = letters[rest];
         return myLetter;
     }
+    
+    /*@Override
+    public String toString(){
+        return "ID: "+this.id+" Nombre: "+this.name+" DNI "+this.dni;
+    }*/
+
+    @Override
+    public String toString() {
+        return this.name+" ("+this.id+")";
+    }
+    
 }
+
+
 
 
 

@@ -5,9 +5,11 @@
  */
 package Modelo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 /**
  *
@@ -30,6 +32,8 @@ public class Event {
         this.complex = complex;
         this.date = date;
         this.area = area;
+        this.equip = new ArrayList<>();
+        this.commissioners = new HashMap<>();
     }
 
     public Event(String name, SportComplex complex, Date date, Area area, List<Equipment> equip, HashMap<Commissioner, String> commissioners) {
@@ -42,7 +46,12 @@ public class Event {
     }
 
     public Event() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.name = "";
+        this.complex = null;
+        this.date = null;
+        this.area = null;
+        this.equip = new ArrayList<>();
+        this.commissioners = new HashMap<>();
     }
     
 
@@ -143,7 +152,32 @@ public class Event {
     public void setCommissioners(HashMap<Commissioner, String> commissioners) {
         this.commissioners = commissioners;
     }
+    
+    @Override
+    public String toString(){
+        String aux = "ID: "+this.id+" Nombre: "+this.name+" Fecha "+this.date+
+                " Complejo: "+this.complex.getId();
+        if (this.area != null) {
+            aux += " Area: "+this.area.getId();
+        }
+        if (!this.equip.isEmpty()){
+            aux += "\n Materiales: \n";
+            for (Equipment e : this.equip) {
+                aux += e.toString()+"\n";
+            }
+        }
+        if(!this.commissioners.isEmpty()){
+            aux += " Comisarios: \n";
+            for (Entry<Commissioner,String> e : this.getCommissioners().entrySet()) {
+                aux += e.toString();
+            }
+        }
+        return aux;
+    }
 }
+
+
+
 
 
 

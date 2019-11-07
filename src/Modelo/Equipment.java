@@ -70,7 +70,20 @@ public class Equipment {
     public void setMaintenance(boolean maintenance) {
         this.maintenance = maintenance;
     }
+    
+    /*@Override
+    public String toString(){
+        return "ID: "+this.id+" Nombre: "+this.name;
+    }*/
+    @Override
+    public String toString() {
+        return this.name+" ("+this.id+")";
+    }
+    
 }
+
+
+
 
 
 

@@ -206,7 +206,7 @@ public class MySQLEventDAO implements EventDAO {
         stat.setInt(1, event.getId());
         rs = stat.executeQuery();
         while (rs.next()) {
-            event.getEquip().add(aux3.get(rs.getInt("id_event")));
+            event.getEquip().add(aux3.get(rs.getInt("id_equipment")));
         }
         stat = conn.prepareStatement(GETALL_CE);
         stat.setInt(1, event.getId());
