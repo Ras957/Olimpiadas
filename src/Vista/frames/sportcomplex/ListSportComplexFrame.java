@@ -67,7 +67,7 @@ public class ListSportComplexFrame extends javax.swing.JFrame {
         Detalles = new javax.swing.JPanel();
         Details = new Vista.frames.sportcomplex.SportComplexDetailsPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro Complejos");
 
         jToolBar1.setFloatable(false);

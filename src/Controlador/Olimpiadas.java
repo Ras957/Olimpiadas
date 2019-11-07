@@ -23,10 +23,11 @@ public class Olimpiadas {
      */
     public static void main(String[] args) throws Exception {
         DAOManager manager = new MySQLDAOManager("localhost", "root", "", "olympics");
-        menu = new MainMenu();
+        menu = new MainMenu(manager);
         menu.setVisible(true);
     }
     
 }
+
 
 

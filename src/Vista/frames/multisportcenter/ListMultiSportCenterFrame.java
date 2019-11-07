@@ -68,7 +68,7 @@ public class ListMultiSportCenterFrame extends javax.swing.JFrame {
         Details = new Vista.frames.multisportcenter.MultiSportCenterDetailsPanel();
         Registros = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro Polideportivos");
 
         jToolBar1.setFloatable(false);

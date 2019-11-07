@@ -26,7 +26,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     private DAOManager manager;
     
-    public MainMenu() {
+    public MainMenu(DAOManager manager) {
         initComponents();
         this.manager = manager;
     }
@@ -50,6 +50,7 @@ public class MainMenu extends javax.swing.JFrame {
         Commissioners = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Base de datos Olimpiadas");
 
         Headquarters.setText("Sedes");
         Headquarters.addActionListener(new java.awt.event.ActionListener() {
