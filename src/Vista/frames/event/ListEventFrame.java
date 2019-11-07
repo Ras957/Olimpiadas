@@ -76,6 +76,7 @@ public class ListEventFrame extends javax.swing.JFrame {
         Registros = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Registro de eventos");
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -289,7 +290,7 @@ public class ListEventFrame extends javax.swing.JFrame {
 
     /**
      * @param args the command line arguments
-     */
+     
     public static void main(String args[]) throws Exception {
      DAOManager manager = new MySQLDAOManager("localhost", "root", "", "olympics");
         java.awt.EventQueue.invokeLater(() -> {
@@ -299,7 +300,7 @@ public class ListEventFrame extends javax.swing.JFrame {
              ex.printStackTrace();
          }
      });
-    }
+    }*/
     
     private void activateButtonsCRUD(boolean active) {
         BEdit.setEnabled(active);
