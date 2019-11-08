@@ -9,6 +9,7 @@ package Vista.frames.event;
 import Exceptions.DAOException;
 import Modelo.Area;
 import Modelo.DAO.AreaDAO;
+import Modelo.DAO.MySQL.MySQLAreaDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -20,11 +21,11 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class AreaComboModel extends DefaultComboBoxModel<AreaComboView>{
 
-    private AreaDAO areas;
+    private MySQLAreaDAO areas;
     
     private List<Area> list;
 
-    public AreaComboModel(AreaDAO areas) {
+    public AreaComboModel(MySQLAreaDAO areas) {
         this.areas = areas;
         this.list = new ArrayList<>();
     }
@@ -37,6 +38,16 @@ public class AreaComboModel extends DefaultComboBoxModel<AreaComboView>{
             }
         }
         
+    }
+    
+    public void update(int n) throws DAOException{
+        if (areas != null) {
+            list = areas.getByMSC(n);
+            removeAllElements();
+            for (Area a : list) {
+                addElement( new AreaComboView(a));
+            }
+        } 
     }
     
     

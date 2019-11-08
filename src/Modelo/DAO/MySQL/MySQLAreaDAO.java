@@ -24,6 +24,7 @@ public class MySQLAreaDAO implements AreaDAO {
     final String DELETE = "DELETE FROM area WHERE id=?";
     final String GETALL = "SELECT * FROM area";
     final String GETONE = "SELECT * FROM area WHERE id=?";
+    final String GETALL_BY_MSC = "SELECT * FROM area WHERE id_multisportcenter=?";
 
     private Connection conn;
 
@@ -184,6 +185,34 @@ public class MySQLAreaDAO implements AreaDAO {
             }
         }
         return area;
+    }
+    
+    public List<Area> getByMSC(Integer id) throws DAOException {
+        PreparedStatement stat = null;
+        ResultSet rs = null;
+        List<Area> areas = new ArrayList<>();
+        try {
+            stat = conn.prepareStatement(GETALL_BY_MSC);
+            stat.setInt(1, id);
+            rs = stat.executeQuery();
+            while (rs.next()) {
+                areas.add(convert(rs));
+            }
+        } catch (SQLException ex) {
+            throw new DAOException("Error en SQL", ex);
+        } finally {
+            try {
+                if (stat != null) {
+                    stat.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                throw new DAOException("Error en SQL", ex);
+            }
+        }
+        return areas;
     }
 
 }

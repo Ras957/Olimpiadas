@@ -7,6 +7,7 @@ package Vista.frames.event;
 
 import Exceptions.DAOException;
 import Modelo.DAO.DAOManager;
+import Modelo.DAO.MySQL.MySQLAreaDAO;
 import Modelo.DAO.MySQL.MySQLDAOManager;
 import Modelo.Event;
 import Vista.frames.sportcenter.SportComplexComboModel;
@@ -34,7 +35,7 @@ public class ListEventFrame extends javax.swing.JFrame {
         this.Details.setEvent(null);
         this.Details.setComboComplex(
                 new SportComplexComboModel(manager.getSportComplexDAO()));
-        this.Details.setComboArea(new AreaComboModel(manager.getAreaDAO()));
+        this.Details.setComboArea(new AreaComboModel((MySQLAreaDAO) manager.getAreaDAO()));
         this.Details.setComboEquip(
                 new EquipmentComboModel(manager.getEquipmentDAO()));
         this.Details.setComboCommissioner(

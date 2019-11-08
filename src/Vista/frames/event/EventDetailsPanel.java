@@ -9,6 +9,7 @@ import Exceptions.DAOException;
 import Modelo.DAO.AreaDAO;
 import Modelo.DAO.CommissionerDAO;
 import Modelo.DAO.EquipmentDAO;
+import Modelo.DAO.MySQL.MySQLAreaDAO;
 import Modelo.DAO.SportComplexDAO;
 import Modelo.Event;
 import Vista.frames.sportcenter.SportComplexComboModel;
@@ -51,7 +52,7 @@ public class EventDetailsPanel extends javax.swing.JPanel {
         comboEquip = new EquipmentComboModel(equip);
         comboEquip.update();
         ComboBoxEquipment.setModel(comboEquip);
-        comboArea = new AreaComboModel(area);
+        comboArea = new AreaComboModel((MySQLAreaDAO) area);
         comboArea.update();
         ComboBoxArea.setModel(comboArea);
     }
@@ -126,11 +127,23 @@ public class EventDetailsPanel extends javax.swing.JPanel {
         if (event != null) {
             TextName.setText(event.getName());
             FormattedTextDate.setValue(event.getDate());
+            SelectItemComboBox();
         }else{
             TextName.setText("");
             FormattedTextDate.setText("");
         }
         TextName.requestFocus();
+    }
+    
+    public void SelectItemComboBox() {
+        boolean encontrado=false;
+        for (int i = 0; i < ComboBoxSportComplex.getItemCount() && !encontrado; i++) {
+            if (ComboBoxSportComplex.getItemAt(i).getSportComplex().getId() == 
+                    event.getComplex().getId()) {
+                ComboBoxSportComplex.setSelectedIndex(i);
+                encontrado=true;
+            }
+        }
     }
     
     public void saveData(){
@@ -199,6 +212,11 @@ public class EventDetailsPanel extends javax.swing.JPanel {
         Commissioners.setText("Comisarios:");
 
         ComboBoxSportComplex.setModel(new javax.swing.DefaultComboBoxModel<>(new SportComplexComboView[] { }));
+        ComboBoxSportComplex.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ComboBoxSportComplexItemStateChanged(evt);
+            }
+        });
 
         FormattedTextDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
 
@@ -261,6 +279,10 @@ public class EventDetailsPanel extends javax.swing.JPanel {
                 .addContainerGap(111, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ComboBoxSportComplexItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboBoxSportComplexItemStateChanged
+        
+    }//GEN-LAST:event_ComboBoxSportComplexItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

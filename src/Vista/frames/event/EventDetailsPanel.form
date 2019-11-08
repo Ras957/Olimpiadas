@@ -121,6 +121,9 @@
           <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new SportComplexComboView[] { })" type="code"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ComboBoxSportComplexItemStateChanged"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;SportComplexComboView&gt;"/>
       </AuxValues>
