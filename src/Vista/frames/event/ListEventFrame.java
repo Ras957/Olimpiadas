@@ -49,6 +49,7 @@ public class ListEventFrame extends javax.swing.JFrame {
     public final void getData() throws DAOException {
         Registros.setText("Actualizando tabla...");
         model.updateModel();
+        System.out.println(model.datos);
         model.fireTableDataChanged();
         Registros.setText(model.getRowCount() + " eventos visibles");
     }

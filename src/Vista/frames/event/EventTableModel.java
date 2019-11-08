@@ -26,7 +26,7 @@ public class EventTableModel extends AbstractTableModel {
 
     private EventDAO events;
 
-    private List<Event> datos = new ArrayList<>();
+    public List<Event> datos = new ArrayList<>();
 
     public EventTableModel(EventDAO events) {
         this.events = events;
@@ -125,4 +125,5 @@ public class EventTableModel extends AbstractTableModel {
         }
         return o;
     }
+    
 }

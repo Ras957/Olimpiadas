@@ -12,9 +12,12 @@ import Modelo.DAO.EquipmentDAO;
 import Modelo.DAO.MySQL.MySQLAreaDAO;
 import Modelo.DAO.SportComplexDAO;
 import Modelo.Event;
+import Modelo.MultiSportCenter;
 import Vista.frames.sportcenter.SportComplexComboModel;
 import Vista.frames.sportcenter.SportComplexComboView;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -142,9 +145,13 @@ public class EventDetailsPanel extends javax.swing.JPanel {
                     event.getComplex().getId()) {
                 ComboBoxSportComplex.setSelectedIndex(i);
                 encontrado=true;
+                
+                
             }
         }
     }
+    
+    
     
     public void saveData(){
         if (event == null) {
@@ -281,7 +288,12 @@ public class EventDetailsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ComboBoxSportComplexItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboBoxSportComplexItemStateChanged
-        
+        try {
+            comboArea.update(((SportComplexComboView)evt.getItem()).getSportComplex().getId());
+            ComboBoxArea.setModel(comboArea);
+        } catch (DAOException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_ComboBoxSportComplexItemStateChanged
 
 

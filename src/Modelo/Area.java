@@ -84,17 +84,13 @@ public class Area {
         this.msc = msc;
     }
     
-    /*@Override
+    @Override
     public String toString(){
         return "ID: "+this.id+" Localización: "+this.location+" Deporte: "+this.sport;
-    }*/
-
-    @Override
-    public String toString() {
-        return this.location+" ("+this.id+")";
     }
     
 }
+
 
 
 

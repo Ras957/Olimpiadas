@@ -6,6 +6,8 @@
 package Modelo.DAO;
 
 import Modelo.Area;
+import java.util.List;
+import Exceptions.DAOException;
 
 /**
  *
@@ -13,7 +15,11 @@ import Modelo.Area;
  * <afcarrasquilla@iesfranciscodelosrios.es>
  */
 public interface AreaDAO extends DAO<Area, Integer>{
+
+    //List<Area> getAllByMsc(Integer id) throws DAOException;
     
 }
+
+
 
 
